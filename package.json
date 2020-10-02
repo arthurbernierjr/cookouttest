@@ -1,11 +1,11 @@
 {
-  "name": "nodejsvoip",
+  "name": "cookouttest",
   "version": "1.0.0",
   "description": "voip without webrtc",
-  "main": "server.js",
+  "main": "server.kofu",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node server.kofu"
   },
   "repository": {
     "type": "git",
@@ -22,6 +22,7 @@
   "homepage": "https://github.com/cracker0dks/nodeJsVoip#readme",
   "dependencies": {
     "express": "4.x",
+    "kofuscript": "^0.1.3",
     "socket.io": "^2.3.0"
   },
   "preferGlobal": true,
