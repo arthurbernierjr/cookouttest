@@ -1,0 +1,31 @@
+SSLPORT = 443
+HTTPPORT = 80
+
+privateKeyPath = './cert/key.pem'
+certificatePath = './cert/cert.pem'
+
+fs = require 'fs'
+express = require "express"
+https = require "https"
+app = express()
+ 
+app.use express.static("#{__dirname}/webcontent")
+
+privateKey = fs.readFileSync privateKeyPath
+certificate = fs.readFileSync certificatePath
+
+server = https.createServer({
+  key: privateKey
+  cert: certificate
+  }, app).listen SSLPORT
+
+io = require('socket.io').listen server, log: false
+
+http = require 'http'
+
+http.createServer((req, res) ->
+  res.writeHead(301, Location: "https://#{req.headers['host']}:#{SSLPORT}#{req.url}")
+  res.end()
+).listen(HTTPPORT)
+
+present "Webserver & Socketserver running on port #{SSLPORT} and #{HTTPPORT}"
